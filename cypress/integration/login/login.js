@@ -7,7 +7,17 @@ describe('Login as Admin PKH', function () {
         cy.stepLogout();
     }),
 
-    it('TC-02 login dengan data Email Salah', function () {
+    it('TC-02 login dengan data yang tidak terdaftar/ email & password salah', function () {
+        cy.mainURL();
+        cy.get('#input-email').type('eh12345678@dojobox.id',{force:true}).should('have.value', 'eh12345678@dojobox.id');
+        cy.get('#input-password').type('admin123',{force:true}).should('have.value', 'admin123');
+        cy.contains('Login').click({force:true});
+        cy.get('#exampleModalLabel').should('have.text', 'Error !');
+        cy.get('.modal-body').should('have.text', 'Nama Pengguna atau Kata Sandi Anda tidak cocok');
+        cy.get('button').contains('OK', {force:true}).click();
+    })
+
+    it('TC-03 login dengan data Email Salah', function () {
         cy.mainURL();
         cy.get('#input-email').type('eh@dojobox.id',{force:true}).should('have.value', 'eh@dojobox.id');
         cy.get('#input-password').type('admin',{force:true}).should('have.value', 'admin');
@@ -17,7 +27,7 @@ describe('Login as Admin PKH', function () {
         cy.get('button').contains('OK', {force:true}).click();
     }),
 
-    it('TC-03 login dengan data Password Salah', function () {
+    it('TC-04 login dengan data Password Salah', function () {
         cy.mainURL();
         cy.get('#input-email').type('e@dojobox.id',{force:true}).should('have.value', 'e@dojobox.id');
         cy.get('#input-password').type('admin123',{force:true}).should('have.value', 'admin123');
@@ -27,7 +37,7 @@ describe('Login as Admin PKH', function () {
         cy.get('button').contains('OK', {force:true}).click();
     }),
 
-    it('TC-04 login dengan data semua null', function () {
+    it('TC-05 login dengan data semua null', function () {
         cy.mainURL();
         cy.get('#input-email').click();
         cy.get('#input-password').click();
@@ -36,7 +46,7 @@ describe('Login as Admin PKH', function () {
         cy.get('button').contains('OK', {force:true}).click();
     }),
 
-    it('TC-05 login dengan data email null', function () {
+    it('TC-06 login dengan data email null', function () {
         cy.mainURL();
         cy.get('#input-password').type('admin',{force:true}).should('have.value', 'admin');
         cy.contains('Login').click({force:true});
@@ -45,7 +55,7 @@ describe('Login as Admin PKH', function () {
         cy.get('button').contains('OK', {force:true}).click();
     }),
 
-    it('TC-06 login dengan data password null', function () {
+    it('TC-07 login dengan data password null', function () {
         cy.mainURL();
         cy.get('#input-email').type('e@dojobox.id',{force:true}).should('have.value', 'e@dojobox.id');
         cy.contains('Login').click({force:true});
